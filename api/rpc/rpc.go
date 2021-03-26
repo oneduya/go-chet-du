@@ -14,7 +14,10 @@ import (
 	"sync"
 )
 
+//这就对应一个服务
 var LogicRpcClient client.XClient
+
+//返回一个对象，执行对象的Do方法，只执行一次，如果已经执行过，则不执行，利用了标志位和锁的机制
 var once sync.Once
 
 type RpcLogic struct {
@@ -23,7 +26,9 @@ type RpcLogic struct {
 var RpcLogicObj *RpcLogic
 
 func InitLogicRpcClient() {
+	//一个Once对象只能执行一次方法
 	once.Do(func() {
+		//
 		d := client.NewEtcdV3Discovery(
 			config.Conf.Common.CommonEtcd.BasePath,
 			config.Conf.Common.CommonEtcd.ServerPathLogic,

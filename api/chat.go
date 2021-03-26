@@ -29,6 +29,7 @@ func New() *Chat {
 }
 
 //api server,Also, you can use gin,echo ... framework wrap
+//接口服务器，可以用其他网络服务器
 func (c *Chat) Run() {
 	//init rpc client
 	rpc.InitLogicRpcClient()

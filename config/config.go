@@ -44,6 +44,7 @@ type Config struct {
 }
 
 func init() {
+	//在项目导入这个包的时候会执行init方法
 	Init()
 }
 

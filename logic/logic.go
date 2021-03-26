@@ -22,9 +22,9 @@ func New() *Logic {
 }
 
 func (logic *Logic) Run() {
-	//read config
+	//首先获取config中的内容，在导入包的时候config.go中的init方法就可以读取配置文件中的内容
 	logicConfig := config.Conf.Logic
-
+	//设置P的最大个数
 	runtime.GOMAXPROCS(logicConfig.LogicBase.CpuNum)
 	logic.ServerId = fmt.Sprintf("logic-%s", uuid.New().String())
 	//init publish redis
@@ -33,6 +33,7 @@ func (logic *Logic) Run() {
 	}
 
 	//init rpc server
+	/*初始化rpc服务端，在服务端中要加入EtcdRegisterPlugin插件*/
 	if err := logic.InitRpcServer(); err != nil {
 		logrus.Panicf("logic init rpc server fail")
 	}
